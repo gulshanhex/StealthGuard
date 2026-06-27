@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_fake_call.xml
+
+    Two panels in a FrameLayout:
+      layoutIncoming — shown before the user accepts the call
+      layoutInCall   — shown after accepting (screen goes black via proximity sensor)
+
+    Visibility is swapped in FakeCallActivity.acceptCall().
+
+    Design goal: visually indistinguishable from a real Android incoming call
+    screen on AOSP/stock launchers.
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A1A1A">
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PANEL 1 — INCOMING CALL (visible by default)
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <LinearLayout
+        android:id="@+id/layoutIncoming"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="visible">
+
+        <!-- ── SIM / network label (top-left, like stock Android) ──────────── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIM 1"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:paddingStart="20dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="8dp" />
+
+        <!-- ── Caller Avatar ───────────────────────────────────────────────── -->
+        <TextView
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:textSize="52sp"
+            android:text="👤"
+            android:background="@drawable/circle_avatar_bg" />
+
+        <!-- ── Caller Name ─────────────────────────────────────────────────── -->
+        <TextView
+            android:id="@+id/tvCallerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Papa"
+            android:textSize="34sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-light" />
+
+        <!-- ── Caller label (Mobile / Home) ───────────────────────────────── -->
+        <TextView
+            android:id="@+id/tvCallerLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Mobile"
+            android:textSize="13sp"
+            android:textColor="#999999" />
+
+        <!-- ── Fake phone number ──────────────────────────────────────────── -->
+        <TextView
+            android:id="@+id/tvFakeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="+91 98765 43210"
+            android:textSize="15sp"
+            android:textColor="#CCCCCC" />
+
+        <!-- ── "Incoming call" label with animated dot ─────────────────────── -->
+        <TextView
+            android:id="@+id/tvIncomingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Incoming call…"
+            android:textSize="13sp"
+            android:textColor="#777777" />
+
+        <!-- ── Flexible spacer ────────────────────────────────────────────── -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- ── Swipe hint (like stock Android) ───────────────────────────── -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Swipe up to answer"
+            android:textSize="12sp"
+            android:textColor="#555555"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- ── Accept / Decline Buttons ──────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="72dp"
+            android:paddingHorizontal="32dp">
+
+            <!-- Decline -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnDecline"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/circle_button_red"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel"
+                    android:tint="#FFFFFF"
+                    android:scaleType="centerInside"
+                    android:padding="18dp"
+                    android:contentDescription="Decline call" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Decline"
+                    android:textSize="13sp"
+                    android:textColor="#DDDDDD" />
+            </LinearLayout>
+
+            <!-- Accept -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/btnAccept"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="@drawable/circle_button_green"
+                    android:src="@android:drawable/sym_action_call"
+                    android:tint="#FFFFFF"
+                    android:scaleType="centerInside"
+                    android:padding="16dp"
+                    android:contentDescription="Accept call" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Accept"
+                    android:textSize="13sp"
+                    android:textColor="#DDDDDD" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PANEL 2 — IN-CALL (shown after accepting)
+         Proximity sensor will drive screen to black when phone near ear.
+         This panel is visible when phone is away from ear during call.
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutInCall"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <!-- ── Caller name (top-left) ─────────────────────────────────────── -->
+        <TextView
+            android:id="@+id/tvInCallName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Papa"
+            android:textSize="22sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="52dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvCallDuration"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- ── Call duration timer (top-right) ───────────────────────────── -->
+        <TextView
+            android:id="@+id/tvCallDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:00"
+            android:textSize="18sp"
+            android:textColor="#999999"
+            android:fontFamily="monospace"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- ── "Encrypted call" status (cosmetic realism) ────────────────── -->
+        <TextView
+            android:id="@+id/tvEncryptedLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🔒  Encrypted"
+            android:textSize="11sp"
+            android:textColor="#555555"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="@id/tvInCallName"
+            app:layout_constraintTop_toBottomOf="@id/tvInCallName"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- ── Call state hint (Listening / Responding…) ─────────────────── -->
+        <TextView
+            android:id="@+id/tvCallStateHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="12sp"
+            android:textColor="#444444"
+            app:layout_constraintBottom_toTopOf="@id/btnEndCall"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto" />
+
+        <!-- ── End call button (bottom-center) ───────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/btnEndCallContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="72dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <ImageButton
+                android:id="@+id/btnEndCall"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/circle_button_red"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:tint="#FFFFFF"
+                android:scaleType="centerInside"
+                android:padding="18dp"
+                android:contentDescription="End call" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="End"
+                android:textSize="13sp"
+                android:textColor="#DDDDDD" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

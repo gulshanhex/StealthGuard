@@ -1,0 +1,146 @@
+<!-- ═══════════════════════════════════════════════════════════
+     fragment_audio_studio.xml
+     Three sections stacked in a NestedScrollView with FABs.
+     ═══════════════════════════════════════════════════════════ -->
+<!-- Save as: res/layout/fragment_audio_studio.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ── HOOK SECTION ──────────────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🎙 HOOK AUDIO"
+                    android:textSize="12sp"
+                    android:textColor="#616161"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddHook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_input_add"
+                    app:fabSize="mini"
+                    app:backgroundTint="#1565C0" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plays once at the start of the call. Only one can be active."
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginBottom="6dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHooks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="#E0E0E0" android:layout_marginVertical="16dp" />
+
+            <!-- ── RESPONSE SECTION ──────────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="💬 RESPONSE AUDIO"
+                    android:textSize="12sp"
+                    android:textColor="#616161"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddResponse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_input_add"
+                    app:fabSize="mini"
+                    app:backgroundTint="#1565C0" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plays when a specific keyword is detected. Link to a keyword when saving."
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginBottom="6dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvResponses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="#E0E0E0" android:layout_marginVertical="16dp" />
+
+            <!-- ── FILLER SECTION ────────────────────────────────────────── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="🔀 FILLER AUDIO"
+                    android:textSize="12sp"
+                    android:textColor="#616161"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddFiller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_input_add"
+                    app:fabSize="mini"
+                    app:backgroundTint="#1565C0" />
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Plays randomly on silence or unrecognised words. Record several."
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginBottom="6dp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFillers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="80dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

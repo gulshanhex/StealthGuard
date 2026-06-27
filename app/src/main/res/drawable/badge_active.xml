@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    badge_active.xml
+    Small rounded-rectangle badge used in item_audio_file.xml to mark
+    the currently active hook audio file with an "ACTIVE" label.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#1565C0" />
+    <corners android:radius="4dp" />
+</shape>

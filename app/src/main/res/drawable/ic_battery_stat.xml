@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_battery_stat.xml
+    Generic battery/sync icon used in the stealth notification.
+    White fill so it renders correctly on the notification bar (dark background).
+    Simple enough to look like a genuine system notification icon.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Battery body outline -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15.67,4H14V2h-4v2H8.33C7.6,4 7,4.6 7,5.33v15.33
+                          C7,21.4 7.6,22 8.33,22h7.33C16.4,22 17,21.4 17,20.67
+                          V5.33C17,4.6 16.4,4 15.67,4z
+                          M13,18H11V16H9l3,-5v3h2l-3,5z" />
+</vector>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dialog_record_audio.xml — Save to res/layout/dialog_record_audio.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Title (set dynamically: "Record Hook Audio", etc.) -->
+    <TextView
+        android:id="@+id/tvRecordTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record Audio"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Keyword field (RESPONSE type only — shown/hidden dynamically) -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilKeyword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Keyword (e.g. market, metro)"
+        android:layout_marginBottom="12dp"
+        android:visibility="gone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Live waveform visualization -->
+    <com.system.cacheclean.audio.WaveformView
+        android:id="@+id/waveformView"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Duration counter -->
+    <TextView
+        android:id="@+id/tvDuration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:textSize="28sp"
+        android:textColor="#1565C0"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:fontFamily="monospace"
+        android:layout_marginBottom="4dp" />
+
+    <!-- Status text -->
+    <TextView
+        android:id="@+id/tvRecordStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tap Record to start"
+        android:textSize="12sp"
+        android:textColor="#9E9E9E"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Record/Stop toggle button -->
+    <Button
+        android:id="@+id/btnRecordToggle"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="⏺  Record"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1565C0" />
+
+</LinearLayout>

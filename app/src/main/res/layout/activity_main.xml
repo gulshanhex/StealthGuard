@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_main.xml
+    "System Cache Manager" — the public face of StealthGuard.
+
+    STEALTH NOTES:
+    - viewCornerTrigger is a transparent 80dp square anchored to the
+      bottom-right corner. It has no background, no elevation, and
+      alpha="0.0". Completely invisible. Do NOT add a debug background
+      color in the release build.
+    - The layout must look like a real system app — muted colors,
+      technical labels, no playful UI elements.
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:padding="16dp">
+
+    <!-- ── App Title Bar ──────────────────────────────────────────────────── -->
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="System Cache Manager"
+        android:textSize="18sp"
+        android:textColor="#212121"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="v2.4.1 | Android System"
+        android:textSize="11sp"
+        android:textColor="#9E9E9E"
+        app:layout_constraintTop_toBottomOf="@id/tvAppTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="2dp" />
+
+    <!-- ── Divider ────────────────────────────────────────────────────────── -->
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/tvAppVersion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ── Storage Overview Card ─────────────────────────────────────────── -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardStorage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/dividerTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STORAGE OVERVIEW"
+                android:textSize="10sp"
+                android:textColor="#9E9E9E"
+                android:letterSpacing="0.1"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressStorage"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="10dp"
+                android:max="100"
+                android:progress="74" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tvStorageUsed"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Used: 47.3 GB"
+                    android:textSize="13sp"
+                    android:textColor="#424242" />
+
+                <TextView
+                    android:id="@+id/tvStorageTotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Storage: 64.0 GB"
+                    android:textSize="13sp"
+                    android:textColor="#424242"
+                    android:gravity="end" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ── Scan Results Card ──────────────────────────────────────────────── -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardResults"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/cardStorage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ANALYSIS RESULTS"
+                android:textSize="10sp"
+                android:textColor="#9E9E9E"
+                android:letterSpacing="0.1"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="App Cache"
+                    android:textSize="13sp"
+                    android:textColor="#616161"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvCacheSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cached Data: 2.31 GB"
+                    android:textSize="13sp"
+                    android:textColor="#424242" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Temp / Junk"
+                    android:textSize="13sp"
+                    android:textColor="#616161"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvJunkSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Junk Files: 847 MB"
+                    android:textSize="13sp"
+                    android:textColor="#424242" />
+            </LinearLayout>
+
+            <!-- Scan progress bar — hidden until scan runs -->
+            <ProgressBar
+                android:id="@+id/progressScan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                android:indeterminate="true" />
+
+            <!-- Status text -->
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Tap Scan to analyse storage"
+                android:textSize="12sp"
+                android:textColor="#9E9E9E"
+                android:gravity="center" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ── Action Buttons ─────────────────────────────────────────────────── -->
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:text="Scan"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#1565C0"
+        app:layout_constraintTop_toBottomOf="@id/cardResults"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnClearCache" />
+
+    <!--
+        btnClearCache:
+        VISIBLE function → clears fake cache data, shows Toast.
+        HIDDEN function  → long press (700ms) → PIN dialog → Admin Panel.
+        DO NOT add any visual indicator of the long-press functionality.
+    -->
+    <Button
+        android:id="@+id/btnClearCache"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="8dp"
+        android:text="Clear Cache"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#C62828"
+        android:alpha="0.5"
+        android:enabled="false"
+        app:layout_constraintTop_toBottomOf="@id/cardResults"
+        app:layout_constraintStart_toStartOf="@id/btnScan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnScan" />
+
+    <!-- ── Invisible Corner Trigger ──────────────────────────────────────── -->
+    <!--
+        THIS VIEW IS INTENTIONALLY INVISIBLE.
+
+        80×80dp transparent touch zone in the bottom-right corner.
+        Constrained to bottom+end of parent.
+
+        NEVER:
+          - Add android:background to this in release
+          - Add android:contentDescription that hints at its function
+          - Add any elevation or shadow
+
+        In debug builds, you may temporarily set:
+          android:background="#33FF0000"  (semi-transparent red)
+        to verify touch registration, then remove before release.
+    -->
+    <View
+        android:id="@+id/viewCornerTrigger"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@android:color/transparent"
+        android:alpha="0.0"
+        android:contentDescription=""
+        android:importantForAccessibility="no"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

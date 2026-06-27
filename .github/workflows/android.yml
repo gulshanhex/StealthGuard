@@ -1,0 +1,117 @@
+name: StealthGuard — Build APK
+
+# ─── Triggers ─────────────────────────────────────────────────────────────────
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:          # Allows manual trigger from GitHub Actions tab
+
+# ─── Jobs ─────────────────────────────────────────────────────────────────────
+jobs:
+  build-debug-apk:
+    name: Build Debug APK
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ── Step 1: Checkout ────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Step 2: JDK 17 ──────────────────────────────────────────────────────
+      # Must match jvmTarget = '17' in app/build.gradle.
+      # 'temurin' is the Eclipse Adoptium OpenJDK — free, reliable.
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'       # Caches ~/.gradle between runs (faster builds)
+
+      # ── Step 3: Android SDK path ─────────────────────────────────────────────
+      # GitHub's ubuntu-latest has the Android SDK pre-installed at $ANDROID_HOME.
+      # Gradle needs local.properties to find it. This file is NOT committed
+      # (it's in .gitignore) so we generate it here at CI time.
+      - name: Create local.properties
+        run: |
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          echo "local.properties created: sdk.dir=$ANDROID_HOME"
+
+      # ── Step 4: Gradle permissions ───────────────────────────────────────────
+      # gradlew is a shell script — must be executable on Linux runners.
+      # This step is required even if you committed it with +x on Windows/macOS.
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # ── Step 5: Build Debug APK ──────────────────────────────────────────────
+      # --no-daemon: GitHub runners are ephemeral, no need to keep a daemon alive.
+      # --stacktrace: Full error trace on failure (easier to debug CI issues).
+      # --info: Shows task execution order (remove if output is too noisy).
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      # ── Step 6: Upload APK artifact ──────────────────────────────────────────
+      # After the workflow runs, go to:
+      #   GitHub repo → Actions tab → click the run → Artifacts section
+      # Download "StealthGuard-debug-apk" and install via ADB or direct transfer.
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: StealthGuard-debug-apk-${{ github.run_number }}
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30    # APK stays available for 30 days
+
+      # ── Step 7: Print APK info ───────────────────────────────────────────────
+      - name: Print APK details
+        run: |
+          APK_PATH="app/build/outputs/apk/debug/app-debug.apk"
+          if [ -f "$APK_PATH" ]; then
+            SIZE=$(du -sh "$APK_PATH" | cut -f1)
+            echo "✅ Build SUCCESS"
+            echo "   APK path : $APK_PATH"
+            echo "   APK size : $SIZE"
+          else
+            echo "❌ APK not found — build may have failed silently"
+            exit 1
+          fi
+
+# ─── SIGNED RELEASE APK (Optional — uncomment when ready) ────────────────────
+#
+# To build a signed release APK, add these GitHub Secrets:
+#   KEYSTORE_BASE64    → base64-encoded .jks file
+#                        Generate: keytool -genkey -v -keystore stealthguard.jks
+#                                           -alias stealthguard -keyalg RSA
+#                                           -keysize 2048 -validity 10000
+#                        Encode:   base64 stealthguard.jks | pbcopy  (macOS)
+#   KEY_STORE_PASSWORD → keystore password
+#   KEY_ALIAS          → key alias (e.g. "stealthguard")
+#   KEY_PASSWORD       → key password
+#
+# Then add this job after build-debug-apk:
+#
+#  build-release-apk:
+#    name: Build Signed Release APK
+#    runs-on: ubuntu-latest
+#    needs: build-debug-apk   # Only runs if debug build succeeded
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: actions/setup-java@v4
+#        with: { java-version: '17', distribution: 'temurin' }
+#      - name: Decode keystore
+#        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > stealthguard.jks
+#      - name: Create local.properties
+#        run: echo "sdk.dir=$ANDROID_HOME" > local.properties
+#      - run: chmod +x gradlew
+#      - name: Build Release APK
+#        run: ./gradlew assembleRelease --no-daemon
+#        env:
+#          SIGNING_STORE_FILE: stealthguard.jks
+#          SIGNING_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+#          SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+#          SIGNING_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: StealthGuard-release-apk-${{ github.run_number }}
+#          path: app/build/outputs/apk/release/app-release.apk

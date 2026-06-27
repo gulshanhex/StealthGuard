@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  StealthGuard — AndroidManifest.xml                                         ║
+║  Phase 1 Complete (Phase 2+ entries are pre-declared as placeholders)        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         PERMISSIONS
+         ═══════════════════════════════════════════════════════════════════════ -->
+
+    <!-- Phase 1: Service survival -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <!-- Phase 2: Audio Studio (declared early — required at runtime) -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Phase 3: Fake Call over lockscreen -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
+    <!-- Phase 4: SOS -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         APPLICATION
+         ═══════════════════════════════════════════════════════════════════════ -->
+    <application
+        android:name=".StealthGuardApp"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name_stealth"
+        android:theme="@style/AppTheme"
+        android:supportsRtl="true">
+
+        <!-- ── MAIN ACTIVITY (Fake Cache Cleaner UI) ─────────────────────── -->
+        <!--
+            This is what the user sees if they open the app drawer.
+            Looks like "System Cache Manager". Real admin is behind PIN.
+        -->
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- ── ADMIN ACTIVITY (Hidden behind PIN) ────────────────────────── -->
+        <activity
+            android:name=".ui.AdminActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
+
+        <!-- ── FAKE CALL ACTIVITY ─────────────────────────────────────────── -->
+        <!--
+            KEY FLAGS:
+              showOnLockScreen  = true  : Required on older APIs to appear over lock.
+              turnScreenOn      = true  : Wakes the physical screen when launched.
+              These are backup for the programmatic flags set in the Activity itself.
+        -->
+        <activity
+            android:name=".ui.FakeCallActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
+
+        <!-- ── GUARD FOREGROUND SERVICE ──────────────────────────────────── -->
+        <!--
+            android:foregroundServiceType="specialUse" is required on API 34+
+            for services that don't fit standard categories (camera, location, etc.)
+            "specialUse" is the correct type for an always-on guard service.
+            You must also declare the <property> tag below to explain the use case
+            (Google Play review — not relevant for sideload, but correct practice).
+        -->
+        <service
+            android:name=".service.GuardForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse"
+            android:stopWithTask="false">
+            <!--
+                stopWithTask="false" is CRITICAL.
+                Ensures the service keeps running even when the user swipes
+                the app out of recents. Without this, the service would stop
+                and onTaskRemoved() would never fire for cleanup.
+            -->
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Guardian service for personal safety alerts" />
+        </service>
+
+        <!-- ── SOS MANAGER SERVICE ───────────────────────────────────────── -->
+        <service
+            android:name=".sos.SOSManager"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <!-- ── ACCESSIBILITY SERVICE ─────────────────────────────────────── -->
+        <!--
+            CRITICAL ATTRIBUTES:
+              permission   = BIND_ACCESSIBILITY_SERVICE : Android security requirement.
+                             Prevents any app other than the OS from binding to it.
+              android:exported = true : Required for the OS to bind to this service.
+
+            The meta-data tag points to our configuration XML which grants
+            canRequestFilterKeyEvents — without this, onKeyEvent() is NEVER called.
+        -->
+        <service
+            android:name=".service.StealthAccessibilityService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:label="@string/accessibility_service_label">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+
+        <!-- ── BOOT RECEIVER ─────────────────────────────────────────────── -->
+        <!--
+            Handles both standard boot and Huawei/MIUI fast-boot.
+            directBootAware="false" is intentional — we do NOT need to run
+            before the user unlocks the phone (credential-encrypted storage
+            would not be available anyway).
+        -->
+        <receiver
+            android:name=".service.BootReceiver"
+            android:exported="false"
+            android:directBootAware="false">
+            <intent-filter android:priority="999">
+                <!-- Standard Android boot -->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <!-- Huawei / HTC fast-boot -->
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>

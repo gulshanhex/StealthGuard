@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_keyword_mapping.xml — Save to res/layout/item_keyword_mapping.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- Keyword label -->
+        <TextView
+            android:id="@+id/tvKeyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="&quot;keyword&quot;"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#1565C0"
+            android:layout_marginBottom="8dp" />
+
+        <!-- GENTS row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="♂"
+                android:textSize="14sp"
+                android:textColor="#1565C0" />
+            <TextView
+                android:id="@+id/tvGentsFile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#616161"
+                android:maxLines="1"
+                android:ellipsize="start" />
+            <ImageButton
+                android:id="@+id/btnPlayGents"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_media_play"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="#1565C0"
+                android:contentDescription="Play GENTS audio" />
+        </LinearLayout>
+
+        <!-- LADY row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="♀"
+                android:textSize="14sp"
+                android:textColor="#AD1457" />
+            <TextView
+                android:id="@+id/tvLadyFile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:textColor="#616161"
+                android:maxLines="1"
+                android:ellipsize="start" />
+            <ImageButton
+                android:id="@+id/btnPlayLady"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/ic_media_play"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="#AD1457"
+                android:contentDescription="Play LADY audio" />
+        </LinearLayout>
+
+        <!-- Delete -->
+        <ImageButton
+            android:id="@+id/btnDeleteMapping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@android:drawable/ic_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#C62828"
+            android:contentDescription="Delete mapping" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

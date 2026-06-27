@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_launcher_foreground.xml
+    Gear + storage bars icon — looks exactly like a system cache/storage utility.
+    Placed in res/drawable/ for use as adaptive icon foreground.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer gear ring -->
+    <path
+        android:fillColor="#ECEFF1"
+        android:pathData="M54,33.5
+            C43.8,33.5 35.5,41.8 35.5,52
+            C35.5,62.2 43.8,70.5 54,70.5
+            C64.2,70.5 72.5,62.2 72.5,52
+            C72.5,41.8 64.2,33.5 54,33.5Z
+            M54,65
+            C46.8,65 41,59.2 41,52
+            C41,44.8 46.8,39 54,39
+            C61.2,39 67,44.8 67,52
+            C67,59.2 61.2,65 54,65Z" />
+
+    <!-- Gear teeth (simplified cog shape) -->
+    <path
+        android:fillColor="#ECEFF1"
+        android:pathData="M63.5,28.8 L60.2,31.2
+            C58.2,30.3 56.1,29.8 54,29.8
+            C51.9,29.8 49.8,30.3 47.8,31.2
+            L44.5,28.8 L38.8,34.5 L41.2,37.8
+            C40.3,39.8 39.8,41.9 39.8,44
+            L36.5,44 L36.5,52 L36.5,60
+            L39.8,60 C40.3,62.1 41.2,64.1 42.4,65.9
+            L39.8,69 L45.5,74.7 L48.6,72.1
+            C50.3,73.1 52.1,73.7 54,73.9
+            L54,77.2 L62,77.2 L62,73.9
+            C63.9,73.7 65.7,73.1 67.4,72.1
+            L70.5,74.7 L76.2,69 L73.6,65.9
+            C74.8,64.1 75.7,62.1 76.2,60
+            L79.5,60 L79.5,52 L79.5,44
+            L76.2,44 C75.7,41.9 74.8,39.8 73.6,38
+            L76.2,34.5 L70.5,28.8 L67.2,31.2
+            C65.2,30.3 63.1,29.8 61,29.8
+            Z" />
+
+    <!-- Inner circle (hollow center) -->
+    <path
+        android:fillColor="#455A64"
+        android:pathData="M54,43
+            C49.0,43 45,47.0 45,52
+            C45,57.0 49.0,61 54,61
+            C59.0,61 63,57.0 63,52
+            C63,47.0 59.0,43 54,43Z" />
+
+    <!-- Storage bars (bottom area — like a cache/storage indicator) -->
+    <rect
+        android:x="32"
+        android:y="76"
+        android:width="44"
+        android:height="5"
+        android:rx="2.5"
+        android:fillColor="#ECEFF1" />
+
+    <rect
+        android:x="32"
+        android:y="84"
+        android:width="30"
+        android:height="5"
+        android:rx="2.5"
+        android:fillColor="#90A4AE" />
+
+</vector>

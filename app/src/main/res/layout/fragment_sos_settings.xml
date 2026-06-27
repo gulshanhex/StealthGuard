@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- fragment_sos_settings.xml -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TRUSTED CONTACTS (max 3)"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvContactLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0/3 contacts configured"
+                android:textSize="12sp"
+                android:textColor="#757575"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSosContacts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                android:background="#E0E0E0" android:layout_marginVertical="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SOS MESSAGE PREVIEW"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.cardview.widget.CardView
+                xmlns:app2="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app2:cardCornerRadius="6dp"
+                app2:cardElevation="1dp"
+                android:layout_marginBottom="12dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp"
+                    android:text="EMERGENCY! I need help. Please call me immediately.\nMy last known location:\nhttps://maps.google.com/?q={lat},{lng}\n\n[Sent automatically]"
+                    android:textSize="13sp"
+                    android:textColor="#424242"
+                    android:fontFamily="monospace" />
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnPreviewSos"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="Preview Formatted Message"
+                android:backgroundTint="#1565C0"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="80dp" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="Add SOS contact"
+        app:backgroundTint="#C62828" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

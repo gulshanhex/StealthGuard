@@ -1,0 +1,33 @@
+# ─── Gradle build outputs ─────────────────────────────────────────────────────
+.gradle/
+build/
+app/build/
+
+# ─── Local configuration ──────────────────────────────────────────────────────
+# local.properties contains your local SDK path — never commit this.
+# GitHub Actions generates it automatically from $ANDROID_HOME.
+local.properties
+
+# ─── Android Studio IDE files ─────────────────────────────────────────────────
+.idea/
+*.iml
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# ─── Keystore files ───────────────────────────────────────────────────────────
+# NEVER commit keystores or signing configs to version control.
+*.jks
+*.keystore
+keystore.properties
+
+# ─── Generated sources ────────────────────────────────────────────────────────
+# Room and kapt generate source files at build time — don't commit them.
+app/src/main/java/com/system/cacheclean/databinding/
+app/src/main/java/com/system/cacheclean/db/*_Impl.kt
+
+# ─── APK outputs ──────────────────────────────────────────────────────────────
+# APKs are built by CI and downloaded as artifacts — don't commit binaries.
+*.apk
+*.aab

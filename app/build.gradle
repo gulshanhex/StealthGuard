@@ -1,0 +1,96 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.system.cacheclean'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.system.cacheclean"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        // A-14: pairs with exportSchema=true in StealthGuardDatabase — Room
+        // writes a versioned schema JSON here on every build, which is what
+        // a future Migration(n, n+1) is validated against.
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // Suppress kapt warnings that pollute build output
+    kapt {
+        correctErrorTypes true
+    }
+}
+
+dependencies {
+    // ── AndroidX Core ─────────────────────────────────────────────────────────
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.activity:activity-ktx:1.8.2'
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+
+    // ── ViewPager2 (Admin Panel tabs) ─────────────────────────────────────────
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    // ── Room Database ─────────────────────────────────────────────────────────
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    kapt 'androidx.room:room-compiler:2.6.1'
+
+    // ── WorkManager (Service keepalive) ───────────────────────────────────────
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+
+    // ── Jetpack Security (EncryptedSharedPreferences) ─────────────────────────
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+
+    // ── Location ──────────────────────────────────────────────────────────────
+    implementation 'com.google.android.gms:play-services-location:21.2.0'
+
+    // ── Coroutines Play Services (await() on Google Tasks — needed for SOS) ───
+    // Provides LocationProviderClient.lastLocation.await() syntax
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3'
+
+    // ── Lifecycle ─────────────────────────────────────────────────────────────
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+
+    // ── Coroutines ────────────────────────────────────────────────────────────
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_audio_file.xml — Save to res/layout/item_audio_file.xml -->
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <!-- File info (left side) -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvAudioFileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#212121"
+                    android:maxLines="1"
+                    android:ellipsize="middle" />
+
+                <!-- ACTIVE badge — shown only for hooks -->
+                <TextView
+                    android:id="@+id/tvActiveBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="ACTIVE"
+                    android:textSize="9sp"
+                    android:textColor="#FFFFFF"
+                    android:background="@drawable/badge_active"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAudioFileMeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <!-- Action buttons (right side) -->
+        <ImageButton
+            android:id="@+id/btnSetActive"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/btn_star_big_off"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#FFC107"
+            android:visibility="gone"
+            android:contentDescription="Set as active hook" />
+
+        <ImageButton
+            android:id="@+id/btnPlayAudio"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_media_play"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#1565C0"
+            android:contentDescription="Play" />
+
+        <ImageButton
+            android:id="@+id/btnDeleteAudio"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@android:drawable/ic_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:tint="#C62828"
+            android:contentDescription="Delete" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/themes.xml -->
+<resources>
+
+    <!--
+        AppTheme — applied to the entire application via android:theme in
+        AndroidManifest.xml. Uses NoActionBar so we control the Toolbar
+        manually in each Activity.
+    -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
+    </style>
+
+    <!--
+        PinDialogTheme — BUG-07 FIX
+        Used by AlertDialog.Builder(this, R.style.PinDialogTheme) in
+        MainActivity for both the PIN verification and PIN setup dialogs.
+
+        Inherits from Material AlertDialog style so text field outlines
+        (TextInputLayout) render correctly inside the dialog.
+        colorAccent sets the positive button and cursor color to the
+        app's primary blue.
+    -->
+    <style name="PinDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColorSecondary">@color/colorTextSecondary</item>
+    </style>
+
+    <!--
+        Admin toolbar theme — applied via android:theme on the Toolbar
+        in activity_admin.xml to keep white text/icons on the blue toolbar.
+    -->
+    <style name="AdminToolbarTheme" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+</resources>

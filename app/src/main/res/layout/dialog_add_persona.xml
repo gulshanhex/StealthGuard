@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- dialog_add_persona.xml -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPersonaName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Caller Name (e.g. Mama, Dost)"
+        android:layout_marginBottom="16dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPersonaName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:maxLength="20" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Voice Gender"
+        android:textSize="13sp"
+        android:textColor="#616161"
+        android:layout_marginBottom="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbGentsPersona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="♂ Gents (Male)"
+            android:checked="true"
+            android:layout_marginEnd="16dp" />
+
+        <RadioButton
+            android:id="@+id/rbLadyPersona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="♀ Lady (Female)" />
+
+    </RadioGroup>
+</LinearLayout>

