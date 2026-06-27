@@ -56,20 +56,32 @@
             C63,47.0 59.0,43 54,43Z" />
 
     <!-- Storage bars (bottom area — like a cache/storage indicator) -->
-    <rect
-        android:x="32"
-        android:y="76"
-        android:width="44"
-        android:height="5"
-        android:rx="2.5"
-        android:fillColor="#ECEFF1" />
+    <!-- Note: rounded-rect bars expressed as <path> — Android VectorDrawable
+         has no <rect> element (that's SVG-only syntax); AAPT rejects it. -->
+    <path
+        android:fillColor="#ECEFF1"
+        android:pathData="M34.5,76
+            H73.5
+            A2.5,2.5 0 0 1 76,78.5
+            V78.5
+            A2.5,2.5 0 0 1 73.5,81
+            H34.5
+            A2.5,2.5 0 0 1 32,78.5
+            V78.5
+            A2.5,2.5 0 0 1 34.5,76
+            Z" />
 
-    <rect
-        android:x="32"
-        android:y="84"
-        android:width="30"
-        android:height="5"
-        android:rx="2.5"
-        android:fillColor="#90A4AE" />
+    <path
+        android:fillColor="#90A4AE"
+        android:pathData="M34.5,84
+            H59.5
+            A2.5,2.5 0 0 1 62,86.5
+            V86.5
+            A2.5,2.5 0 0 1 59.5,89
+            H34.5
+            A2.5,2.5 0 0 1 32,86.5
+            V86.5
+            A2.5,2.5 0 0 1 34.5,84
+            Z" />
 
 </vector>
